@@ -18,6 +18,8 @@ gem 'puma', '~> 5.0'
 
 gem 'open-uri'
 gem 'json', '~> 2.6', '>= 2.6.2'
+gem "slack-notifier"
+
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'

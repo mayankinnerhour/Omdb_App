@@ -65,4 +65,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # Rails.application.routes.default_url_options = { host: "http://localhost:3000" }
+
+  ENV['SLACK_WEBHOOK_URL'] = "https://hooks.slack.com/services/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"
+  ENV['SLACK_CHANNEL_NAME'] = "#mayank-notifications-test"
 end
