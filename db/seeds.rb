@@ -14,6 +14,7 @@ movies = JSON.parse(movie_id)
 	# p movie
 	new_movie = Movie.create!(
 		title: movie["Search"][index]["Title"],
+		description: movie["Search"][index]["Type"],
 		runtime: movie["Search"][index]["Runtime"],
 		genre: movie["Search"][index]["Director"],
 		rated: movie["Search"][index]["Ratings"],
