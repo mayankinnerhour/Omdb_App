@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  year: 1
+  genre: MyString
+  rated: MyString
+  release: 2022-06-23
+  runtime: 2022-06-23 14:50:30
+  type: 
+
+two:
+  title: MyString
+  year: 1
+  genre: MyString
+  rated: MyString
+  release: 2022-06-23
+  runtime: 2022-06-23 14:50:30
+  type: 
