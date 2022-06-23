@@ -4,8 +4,11 @@ class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :update, :destroy, :add_to_favorite]
   before_action :authenticate_api_user!, except: [ :index, :show ]
 
+  # MAX_PAGINATION_LIMIT = 10
+
   def index
-    @movies = Movie.all
+    # @movies = Movie.limit(limit).offset(params[:offset]).order(title: :asc)
+    @movies = Movie.page(page).per(per_page).order(title: :asc)
 
     render json: @movies
   end
@@ -73,6 +76,22 @@ class MoviesController < ApplicationController
   end
 
   private
+
+    # def limit
+    #     [
+    #       params.fetch(:limit, MAX_PAGINATION_LIMIT).to_i,
+    #       MAX_PAGINATION_LIMIT
+    #     ].min
+    # end
+
+    def page
+     @page ||= params[:page] || 1
+    end
+
+    def per_page
+      @per_page ||= params[:per_page] || 5
+    end
+
     def set_movie
       @movie = Movie.find(params[:id])
     end
@@ -80,4 +99,13 @@ class MoviesController < ApplicationController
     def movie_params
       params.require(:movie).permit(:title, :year, :genre, :rated, :release, :runtime, :type, :user_id, :image)
     end
+
+    def pagination_meta(object)        
+      {       
+     current_page: object.current_page,        
+     next_page: object.next_page,        
+     prev_page: object.prev_page,        
+     total_pages: object.total_pages,        
+     total_count: object.total_count        }    
+   end
 end

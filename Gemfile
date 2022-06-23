@@ -19,7 +19,9 @@ gem 'puma', '~> 5.0'
 gem 'open-uri'
 gem 'json', '~> 2.6', '>= 2.6.2'
 gem "slack-notifier"
-
+# gem 'will_paginate', '~> 3.0'
+# gem 'api-pagination'
+gem 'kaminari'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
