@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
   def index
     # @movies = Movie.limit(limit).offset(params[:offset]).order(title: :asc)
-    @movies = Movie.page(page).per(per_page).order(title: :asc)
+    @movies = Movie.with_long_title(20).new_movies(2019).only_movies("movie").page(page).per(per_page).order(title: :asc)
 
     render json: @movies
   end

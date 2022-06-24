@@ -14,7 +14,9 @@ class Movie < ApplicationRecord
 	validates :year, numericality: { only_integer: true }
 	validates :starts_at, presence: true
 
-
+	scope :with_long_title, ->(length = 10) { where("LENGTH(title) > ?", length) }
+	scope :new_movies, ->(latest = 2022) {where("year >= ?", latest)}
+	scope :only_movies, ->(type = "series") {where("description = ?", type) }
 
 	after_create :reminder
 
