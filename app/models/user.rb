@@ -15,4 +15,7 @@ class User < ActiveRecord::Base
   has_many :favorites, through: :favorite_movies, source: :movie # the actual movies a user favorites
   has_many :reviews, dependent: :destroy
 
+  validates :email, presence: true
+  validates :email, uniqueness: true
+
 end

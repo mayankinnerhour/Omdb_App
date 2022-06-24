@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_23_135812) do
+ActiveRecord::Schema.define(version: 2022_06_23_201706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,21 @@ ActiveRecord::Schema.define(version: 2022_06_23_135812) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
   create_table "favorite_movies", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "movie_id", null: false
@@ -63,6 +78,8 @@ ActiveRecord::Schema.define(version: 2022_06_23_135812) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.datetime "starts_at"
+    t.string "timezone"
     t.index ["user_id"], name: "index_movies_on_user_id"
   end
 

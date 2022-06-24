@@ -1,5 +1,5 @@
 class Movie < ApplicationRecord
-	# include SlackNotification
+	include SlackNotification
 
 	# searchkick
 
@@ -9,23 +9,26 @@ class Movie < ApplicationRecord
 	has_many :reviews
 	has_one_attached :image
 
+	validates :title, presence: true
+	validates :description, length: { maximum: 1000, too_long: "%{count} characters is the maximum allowed" }
+	validates :year, numericality: { only_integer: true }
+	validates :starts_at, presence: true
 
-	# after_create :reminder
 
-	# scope :by_name, -> (keyword) { any_of({ :title => /.*#{keyword}.*/ }) if keyword.present? }
-	# scope :old, -> { where('year < ?', 1.years.ago )}
 
-	# def reminder
-	# 	time_str = ((self.time).localtime).strftime("%I:%M%p on %b. %d, %Y")
-	# 	message = "Movie #{self.title}. Just a reminder that you have a movie coming up at #{time_str} to watch."
-	# 	slack_data = { message: message }
-	# 	sendNotification(slack_data)
-	# end
+	after_create :reminder
 
-	# def when_to_run
-	# 	minutes_before_movie = 1.minutes
-	# 	time - minutes_before_movie
-	# end
+	def reminder
+		time_str = ((self.starts_at).localtime).strftime("%I:%M%p on %b. %d, %Y")
+		message = "Movie #{self.title}. Just a reminder that you have a movie coming up at #{time_str} to watch."
+		slack_data = { message: message }
+		sendNotification(slack_data)
+	end
 
-	# handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }
+	def when_to_run
+		minutes_before_movie = 1.minutes
+		starts_at - minutes_before_movie
+	end
+
+	handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }
 end

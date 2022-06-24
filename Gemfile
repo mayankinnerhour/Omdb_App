@@ -23,6 +23,12 @@ gem "slack-notifier"
 # gem 'api-pagination'
 gem 'kaminari'
 
+# Use delayed job for running background jobs
+gem 'delayed_job_active_record'
+
+# Need daemons to start delayed_job
+gem 'daemons'
+
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
 gem 'devise_token_auth'

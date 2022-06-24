@@ -28,6 +28,7 @@ class MoviesController < ApplicationController
   end
 
   def create
+    Time.zone = movie_params[:time_zone]
     @movie = current_api_user.movies.build(movie_params)
     # @movie = Movie.new(movie_params)
     if @movie.save
@@ -37,8 +38,8 @@ class MoviesController < ApplicationController
       render json: @movie.errors, status: :unprocessable_entity
       message = "Movie #{@movie.title} Failed to add."
     end
-    slack_data = { message: message }
-    sendNotification(slack_data)
+    # slack_data = { message: message }
+    # sendNotification(slack_data)
   end
 
   def update
@@ -97,15 +98,6 @@ class MoviesController < ApplicationController
     end
 
     def movie_params
-      params.require(:movie).permit(:title, :year, :genre, :rated, :release, :runtime, :type, :user_id, :image)
+      params.require(:movie).permit(:title, :year, :genre, :rated, :release, :runtime, :type, :user_id, :image, :timezone, :starts_at)
     end
-
-    def pagination_meta(object)        
-      {       
-     current_page: object.current_page,        
-     next_page: object.next_page,        
-     prev_page: object.prev_page,        
-     total_pages: object.total_pages,        
-     total_count: object.total_count        }    
-   end
 end

@@ -66,6 +66,6 @@ Rails.application.configure do
 
   # Rails.application.routes.default_url_options = { host: "http://localhost:3000" }
 
-  ENV['SLACK_WEBHOOK_URL'] = "https://hooks.slack.com/services/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"
+  ENV['SLACK_WEBHOOK_URL'] = "https://hooks.slack.com/services/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"
   ENV['SLACK_CHANNEL_NAME'] = "#mayank-notifications-test"
 end
