@@ -15,7 +15,8 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = current_api_user.reviews.build(review_params)
+    # @review = current_api_user.reviews.build(review_params)
+    @review = Review.new(review_params)
     @review.user_id = current_api_user.id
     @review.movie_id = @movie.id
 
